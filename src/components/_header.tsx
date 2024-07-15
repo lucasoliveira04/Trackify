@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Container, Navbar } from 'react-bootstrap';
+import "../../public/css/style.css"
 
 interface HeaderProps {
   title: string;
@@ -8,13 +9,14 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ title, label_button1, label_button2 }) => {
+
   return (
-    <Navbar bg="dark" expand="lg">
-      <Container className='d-flex justify-content-between'>
-        <Navbar.Brand href="#home" className='text-light'>{title}</Navbar.Brand>
+    <Navbar bg="light" expand="lg" id="container-navbar">
+      <Container className='d-flex justify-content-between' id='container-header'>
+        <Navbar.Brand href="#home" id='title-header' className='text-dark'>{title}</Navbar.Brand>
         <span className='d-flex gap-4'>
-            <Button className='btn btn-success'>{label_button1}</Button>
-            <Button className='btn btn-primary'>{label_button2}</Button>
+            <Button className={'btn btn-primaty'}>{label_button1}</Button>
+            <Button className={'btn btn-success'}>{label_button2}</Button>
         </span>
       </Container>
     </Navbar>
