@@ -1,5 +1,6 @@
 import { Button, Container, Navbar } from 'react-bootstrap';
 import "../../public/css/style.css"
+import { Link } from 'react-router-dom';
 
 interface HeaderProps {
   title: string;
@@ -10,13 +11,18 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ title, label_button1, label_button2 }) => {
 
   return (
-    <Navbar bg="light" expand="lg" id="container-navbar">
+    <Navbar bg="light" expand="lg" className='sticky-top' id="container-navbar">
       <Container className='d-flex justify-content-between' id='container-header'>
-        <Navbar.Brand href="#home" id='title-header' className='text-dark'>{title}</Navbar.Brand>
+        <Link to={"/"} className='navbar-brand text-dark' id='title-header'>
+          {title}
+        </Link>
+        <div className='d-flex justify-content-around' id="buttons-container">
         <span className='d-flex gap-4'>
-            <Button className={'btn btn-primaty'}>{label_button1}</Button>
-            <Button className={'btn btn-success'}>{label_button2}</Button>
+            <Button className={'btn btn-success'}>{label_button1}</Button>
+            <Button className={'btn btn-primary'}>{label_button2}</Button>
         </span>
+        </div>
+        
       </Container>
     </Navbar>
   );

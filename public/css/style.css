@@ -10,6 +10,19 @@
     transform: skewY(-3deg);
 }
 
+#container-navbar{
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.btn{
+    width: 100px;
+}
+
+#buttons-container{
+    gap: 20px;
+}
 @media screen and (max-width: 740px){
     #container-header{
         display: flex;
