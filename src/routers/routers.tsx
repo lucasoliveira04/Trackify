@@ -1,17 +1,28 @@
-import { BrowserRouter, Route, Routes} from "react-router-dom"
-import { MainPage } from "../pages/main-page"
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { MainPage } from '../pages/main-page';
+import { Helmet } from 'react-helmet';
 
 const AppRouter = () => {
-    return(
+    const titleDefault = 'Trackify';
+
+    return (
         <BrowserRouter>
             <Routes>
                 <Route
                     path="/"
-                    element={<MainPage/>}
+                    element={
+                        <React.Fragment>
+                            <Helmet>
+                                <title>{`Trackify`}</title>
+                            </Helmet>
+                            <MainPage />
+                        </React.Fragment>
+                    }
                 />
             </Routes>
         </BrowserRouter>
-    )
-}
+    );
+};
 
-export default AppRouter
+export default AppRouter;
