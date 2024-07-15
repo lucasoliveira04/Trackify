@@ -1,0 +1,25 @@
+:root {
+    --font-family-gaMaamli: "Ga Maamli", sans-serif;
+    --font-family-pacifico: "Pacifico", cursive;
+}
+
+#title-header{
+    font-family: var(--font-family-pacifico);
+    font-weight: bold;
+    font-size: 30px;
+    transform: skewY(-3deg);
+}
+
+@media screen and (max-width: 740px){
+    #container-header{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        gap: 10px;
+    }
+
+    #title-header{
+        transform: skewY(0deg);
+        font-size: 50px;
+    }
+}
