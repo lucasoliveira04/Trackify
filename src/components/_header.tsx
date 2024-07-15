@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import { Button, Container, Navbar } from 'react-bootstrap';
 import "../../public/css/style.css"
 
