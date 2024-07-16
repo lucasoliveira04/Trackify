@@ -23,6 +23,13 @@
 #buttons-container{
     gap: 20px;
 }
+
+#modal-form-login{
+    display: flex;
+    
+    flex-direction: column;
+    height: 30vh;
+}
 @media screen and (max-width: 740px){
     #container-header{
         display: flex;
