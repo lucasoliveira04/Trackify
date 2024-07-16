@@ -14,7 +14,7 @@ const AppRouter = () => {
                     element={
                         <React.Fragment>
                             <Helmet>
-                                <title>{`Trackify`}</title>
+                                <title>{titleDefault}</title>
                             </Helmet>
                             <MainPage />
                         </React.Fragment>
