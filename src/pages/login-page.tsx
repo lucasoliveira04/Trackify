@@ -1,24 +1,24 @@
-import React, { useState } from "react"
-import { Col, Modal, Row } from "react-bootstrap"
+import React, { useState } from "react";
+import { Col, Modal, Row } from "react-bootstrap";
 import Checkbox from "../components/_checkBox";
-import googleImg from "../../public/img/google.png"
-
+import googleImg from "../../public/img/google.png";
+import Button from "../components/_button";
 interface LoginFormProps {
     show: boolean;
     onClose: () => void;
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ show, onClose }) => {
-    const [showPassword, setShowPassword] = useState(false)
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         onClose();
     };
 
-    const handleCheckboxChange = (event: React.ChangeEventM<HTMLInputElement>) => {
-        setShowPassword(event.target.checked)
-    }
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setShowPassword(event.target.checked);
+    };
 
     const loginInputs = [
         { type: "text", placeholder: "Username" },
@@ -26,13 +26,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ show, onClose }) => {
     ];
 
     const loginButtons = [
-        { type: "submit", className: "btn-primary", label: "Login", onClick: handleSubmit },
+        { type: "submit" as const, className: "btn-primary", label: "Login", onClick: handleSubmit },
     ];
 
     const loginCheckboxes = [
         { id: "showPassword", label: "Show Password", checked: showPassword, onChange: handleCheckboxChange },
     ];
-
 
     return (
         <Modal show={show} onHide={onClose}>
@@ -41,11 +40,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ show, onClose }) => {
             </Modal.Header>
             <Modal.Body>
                 <Row>
-                    {loginInputs.map((Input, index) => (
+                    {loginInputs.map((input, index) => (
                         <Row key={index} md={6}>
                             <input
-                                type={Input.type}
-                                placeholder={Input.placeholder}
+                                type={input.type}
+                                placeholder={input.placeholder}
                                 className="form-control mb-2"
                             />
                         </Row>
@@ -60,16 +59,15 @@ const LoginForm: React.FC<LoginFormProps> = ({ show, onClose }) => {
                                 onChange={checkbox.onChange}
                             />
                         ))}
-                        <button
+                        <Button
                             type={loginButtons[0].type}
-                            className={`btn ${loginButtons[0].className}`}
+                            className={loginButtons[0].className}
+                            label={loginButtons[0].label}
                             onClick={loginButtons[0].onClick}
-                        >
-                            {loginButtons[0].label}
-                        </button>
+                        />
                     </Col>
                     <Col className="d-flex justify-content-center">
-                        <img src={googleImg} width={"50px"} style={{cursor: "pointer"}}/>
+                        <img src={googleImg} width={"50px"} style={{ cursor: "pointer" }} />
                     </Col>
                 </Row>
             </Modal.Body>
