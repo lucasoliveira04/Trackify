@@ -14,6 +14,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ show, onClose }) => {
     const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         onClose();
+
+        setTimeout(() => {
+            window.location.href = "/home"
+        }, 500)
     };
 
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
