@@ -1,10 +1,15 @@
 import Header from "../components/_header"
 import "../../public/css/style.css"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import LoginForm from "./login-page"
 
 export const MainPage = () => {
     const [showLogin, setShowLogin] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+    const handleLoginSuccess = () => [
+        setIsLoggedIn(true)
+    ]
 
     const handleLoginClick = () => {
         setShowLogin(true)
@@ -13,6 +18,12 @@ export const MainPage = () => {
     const handleCloseLogin = () => {
         setShowLogin(false)
     }
+
+    useEffect(() => {
+        if (isLoggedIn){
+            window.location.href = "/home"
+        }
+    }, [isLoggedIn])
 
     return(
         <div>
@@ -23,7 +34,7 @@ export const MainPage = () => {
             onClickBtn1={handleLoginClick}
             />
 
-            <LoginForm show={showLogin} onClose={handleCloseLogin}/>
+            <LoginForm show={showLogin} onSuccess={handleLoginSuccess} onClose={handleCloseLogin}/>
         </div>
     )
 }

@@ -5,10 +5,11 @@ import googleImg from "../../public/img/google.png";
 import Button from "../components/_button";
 interface LoginFormProps {
     show: boolean;
+    onSuccess: () => void
     onClose: () => void;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ show, onClose }) => {
+const LoginForm: React.FC<LoginFormProps> = ({ show, onSuccess, onClose }) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -16,7 +17,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ show, onClose }) => {
         onClose();
 
         setTimeout(() => {
-            window.location.href = "/home"
+            onSuccess()
         }, 500)
     };
 
