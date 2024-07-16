@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { MainPage } from '../pages/main-page';
 import { Helmet } from 'react-helmet';
 import { MainUserPage } from '../pages/main-user-page';
+import { NotFoundPage } from '../pages/notfound-page';
 
 const AppRouter = () => {
     const titleDefault = 'Trackify';
@@ -33,6 +34,8 @@ const AppRouter = () => {
                         </React.Fragment>
                     }
                 />
+
+                <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </BrowserRouter>
     );
