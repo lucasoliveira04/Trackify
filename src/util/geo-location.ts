@@ -33,9 +33,23 @@ const requestLocationPermission = (
                     });
             },
             (error) => {
-                console.error('Erro ao obter localização:', error);
-                setError('Erro ao obter localização. Verifique as configurações do navegador.');
-            }
+                switch (error.code){
+                    case error.PERMISSION_DENIED:
+                        setError('Permissão para obter localização negada. Este site não funcionará corretamente sem acesso à localização em tempo real.');
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        setError('Localização indisponível.');
+                        break;
+                    case error.TIMEOUT:
+                        setError('Tempo para obter localização esgotado.');
+                        break;
+                    default:
+                        setError('Erro desconhecido ao obter localização.');
+                        break;            
+                }
+                console.log("Erro ao obter localização: ", error)
+            },
+            {enableHighAccuracy: true, timeout: 10000, maximumAge: 0}
         );
     } else {
         setError('Geolocalização não é suportada pelo navegador.');
