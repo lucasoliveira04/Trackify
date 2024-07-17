@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.19.3",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.34",
     "@types/tailwindcss": "^3.1.0",
@@ -17,12 +18,14 @@
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "firebase": "^10.12.3",
+    "leaflet": "^1.9.4",
     "postcss": "^8.4.39",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.4",
     "react-dom": "^18.3.1",
     "react-helmet": "^6.1.0",
     "react-helmet-async": "^2.0.5",
+    "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.24.1",
     "styled-components": "^6.1.11",
     "tailwindcss": "^3.4.4"
