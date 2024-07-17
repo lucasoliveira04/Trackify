@@ -23,15 +23,16 @@ const libraries : Libraries = ["places"]
 
 export const GoogleMapsProvider: React.FC<GoogleMapsProviderProps> = ({ children }) => {
     const [googleMaps, setGoogleMaps] = useState<typeof google | null>(null);
-    const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+    // const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+    const key = "AIzaSyB1EgpMGZ8aCsfqR4nb6xNS7OP8JKiV26Y"
 
-    if (!googleMapsApiKey) {
-        throw new Error("Google Maps API key is missing. Add it to your .env.local file.");
-    }
+    // if (!googleMapsApiKey) {
+    //     throw new Error("Google Maps API key is missing. Add it to your .env.local file.");
+    // }
 
     return (
         <LoadScript
-            googleMapsApiKey={googleMapsApiKey}
+            googleMapsApiKey={key}
             libraries={libraries}
             onLoad={() => setGoogleMaps(google)}
         >
