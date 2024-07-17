@@ -26,7 +26,7 @@ export const GoogleMapsProvider: React.FC<GoogleMapsProviderProps> = ({children}
 
     return(
         <LoadScript
-        googleMapsApiKey={googleMapsApiKey}
+        googleMapsApiKey={googleMapsApiKey as string}
         libraries={["places"]}
         onLoad={() => setGoogleMaps(google)}
         >
