@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
-import { LoadScript } from "@react-google-maps/api";
+import { Libraries, LoadScript } from "@react-google-maps/api";
 
 interface GoogleMapsContextProps {
     googleMaps: typeof google | null;
@@ -19,7 +19,7 @@ interface GoogleMapsProviderProps {
     children: ReactNode;
 }
 
-const libraries = ["places"];
+const libraries : Libraries = ["places"]
 
 export const GoogleMapsProvider: React.FC<GoogleMapsProviderProps> = ({ children }) => {
     const [googleMaps, setGoogleMaps] = useState<typeof google | null>(null);
