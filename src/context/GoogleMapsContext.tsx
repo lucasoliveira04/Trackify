@@ -24,6 +24,8 @@ export const GoogleMapsProvider: React.FC<GoogleMapsProviderProps> = ({children}
     const [googleMaps, setGoogleMaps] = useState<typeof google | null>(null)
     const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
 
+    // teste
+
     return(
         <LoadScript
         googleMapsApiKey={googleMapsApiKey as string}
