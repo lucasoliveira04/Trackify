@@ -56,4 +56,12 @@ const requestLocationPermission = (
     }
 };
 
-export { requestLocationPermission };
+const cleanAddress = (address: string | null): string | null => {
+    if (!address) return null;
+    const addressParts = address.split(',');
+    const cleanedAddressParts = addressParts.filter(part => part.trim() !== "undefined");
+    return cleanedAddressParts.join(', ');
+};
+
+
+export { requestLocationPermission, cleanAddress };
