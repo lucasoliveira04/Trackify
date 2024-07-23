@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import { customAlphabet } from 'nanoid';
 import moment from 'moment-timezone';
 
@@ -6,14 +7,14 @@ const generateToken = (typeToken: string): void => {
     switch (typeToken) {
         case "login":
             const token = generateRandomToken(26);
-            const timestamp = moment().tz('America/Sao_Paulo').format('YYYY-MM-DDTHH:mm:ss.SSS-03:00'); // Formato com fuso horário
+            const timestamp = moment().tz('America/Sao_Paulo').format('YYYY-MM-DDTHH:mm:ss.SSS-03:00'); 
 
             const tokenData = {
                 token,
                 timestamp
             };
 
-            localStorage.setItem(`t_${typeToken}`, JSON.stringify(tokenData)); // Corrigido para `t_${typeToken}`
+            localStorage.setItem(`t_${typeToken}`, JSON.stringify(tokenData)); 
             console.log(`Token de ${typeToken} gerado às ${timestamp}: ${token}`);
             break;
         default:
