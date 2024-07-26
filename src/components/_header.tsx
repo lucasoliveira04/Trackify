@@ -7,9 +7,10 @@ interface HeaderProps {
   label_button1: string;
   label_button2: string;
   onClickBtn1: () => void
+  onClickBtn2: () => void
 }
 
-const Header: React.FC<HeaderProps> = ({ title, label_button1, label_button2, onClickBtn1}) => {
+const Header: React.FC<HeaderProps> = ({ title, label_button1, label_button2, onClickBtn1, onClickBtn2}) => {
 
   return (
     <Navbar bg="light" expand="lg" className='sticky-top' id="container-navbar">
@@ -20,7 +21,7 @@ const Header: React.FC<HeaderProps> = ({ title, label_button1, label_button2, on
         <div className='d-flex justify-content-around' id="buttons-container">
         <span className='d-flex gap-4'>
             <Button className={'btn btn-success'} onClick={onClickBtn1}>{label_button1}</Button>
-            <Button className={'btn btn-primary'}>{label_button2}</Button>
+            <Button className={'btn btn-primary'} onClick={onClickBtn2}>{label_button2}</Button>
         </span>
         </div>
         
