@@ -9,8 +9,7 @@ export const MainPage = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     
     const [showRegister, setShowRegister] = useState(false)
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [isRegisterIn, setIsRegisterIn] = useState(false)
+    const [ ,setIsRegisterIn] = useState(false)
 
     const handleLoginSuccess = () => {
         setIsLoggedIn(true)
