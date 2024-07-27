@@ -1,14 +1,14 @@
 import './App.css'
 import 'leaflet/dist/leaflet.css';
 import AppRouter from './routers/routers'
-import { GoogleMapsProvider } from './context/GoogleMapsContext';
+import AppProviders from './util/contexts';
 
 function App() {
   return (
     <>
-      <GoogleMapsProvider>
+      <AppProviders>
         <AppRouter />
-      </GoogleMapsProvider>
+      </AppProviders>   
     </>
   )
 }

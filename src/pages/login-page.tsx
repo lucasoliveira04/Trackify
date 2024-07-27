@@ -3,6 +3,7 @@ import { Col, Modal, Row } from "react-bootstrap";
 import Checkbox from "../components/_checkBox";
 import googleImg from "../../public/img/google.png";
 import Button from "../components/_button";
+import { useAuth } from "../context/google/auth/GoogleAuthContext";
 interface LoginFormProps {
     show: boolean;
     onSuccess: () => void
@@ -11,6 +12,7 @@ interface LoginFormProps {
 
 const LoginForm: React.FC<LoginFormProps> = ({ show, onSuccess, onClose }) => {
     const [showPassword, setShowPassword] = useState(false);
+    const {loginWithGoogle} = useAuth()
 
     const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -21,10 +23,19 @@ const LoginForm: React.FC<LoginFormProps> = ({ show, onSuccess, onClose }) => {
         }, 500)
     };
 
+    const handleGoogleLogin = async () => {
+        try{
+            await loginWithGoogle()
+            onSuccess()
+        } catch (error){
+            console.error(error);
+        }
+    }
+
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setShowPassword(event.target.checked);
     };
-
+    
     const loginInputs = [
         { type: "text", placeholder: "Username" },
         { type: showPassword ? "text" : "password", placeholder: "Password" },
@@ -72,7 +83,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ show, onSuccess, onClose }) => {
                         />
                     </Col>
                     <Col className="d-flex justify-content-center">
-                        <img src={googleImg} width={"50px"} style={{ cursor: "pointer" }} />
+                        <img 
+                            src={googleImg} 
+                            width={"50px"} 
+                            onClick={handleGoogleLogin}
+                            style={{ cursor: "pointer" }} />
                     </Col>
                 </Row>
             </Modal.Body>

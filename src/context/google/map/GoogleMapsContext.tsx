@@ -19,7 +19,7 @@ interface GoogleMapsProviderProps {
     children: ReactNode;
 }
 
-const libraries : Libraries = ["places"]
+const libraries: Libraries = ["places"]
 
 export const GoogleMapsProvider: React.FC<GoogleMapsProviderProps> = ({ children }) => {
     const [googleMaps, setGoogleMaps] = useState<typeof google | null>(null);

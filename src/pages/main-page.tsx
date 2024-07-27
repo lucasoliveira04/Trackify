@@ -3,14 +3,17 @@ import "../../public/css/style.css"
 import React, { useEffect, useState } from "react"
 import LoginForm from "./login-page"
 import RegisterForm from "./register-page"
+import { useAuth } from "../context/google/auth/GoogleAuthContext"
 
 type ModalStateSetter = React.Dispatch<React.SetStateAction<boolean>>
 
 export const MainPage = () => {
     const [showLogin, setShowLogin] = useState(false)
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [, setIsLoggedIn] = useState(false)
     const [showRegister, setShowRegister] = useState(false)
     const [ ,setIsRegisterIn] = useState(false)
+
+    const {user} = useAuth()
 
     const handleOpenModal = (setModalState: ModalStateSetter) => {
         setModalState(true)
@@ -26,10 +29,10 @@ export const MainPage = () => {
 
 
     useEffect(() => {
-        if (isLoggedIn) {
+        if (user) {
             window.location.href = "/home"
         }
-    }, [isLoggedIn])
+    }, [user])
 
     return(
         <div>
