@@ -17,6 +17,7 @@ const AppRouter = () => {
                         <React.Fragment>
                             <Helmet>
                                 <title>{titleDefault}</title>
+                                <link rel="icon" href="/public/img/ico/Inserir_um_título-removebg-preview (1).png" />
                             </Helmet>
                             <MainPage />
                         </React.Fragment>
@@ -29,6 +30,7 @@ const AppRouter = () => {
                         <React.Fragment>
                             <Helmet>
                                 <title>Pagina Inicial | {titleDefault}</title>
+                                <link rel="icon" href="/public/img/ico/Inserir_um_título-removebg-preview (1).png" />
                             </Helmet>
                             <MainUserPage/>
                         </React.Fragment>
