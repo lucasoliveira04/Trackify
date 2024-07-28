@@ -21,7 +21,7 @@ export const MainUserPage = () => {
     const [, setUserData] = useState<{name: string | null, email: string | null}>({name: null, email: null});
     const { user, logout } = useAuth();
     const [, setToken] = useState<string | null>(null);
-
+    
     const fetchData = async () => {
         const data = await getUserData();
         if (data) {

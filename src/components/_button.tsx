@@ -7,9 +7,11 @@ interface ButtonProps {
     onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
     width?: number
     height?: number
+    disabled?:boolean
+    
 }
 
-const Button: React.FC<ButtonProps> = ({ type, className, label, onClick, width, height }) => {
+const Button: React.FC<ButtonProps> = ({ type, className, label, onClick, width, height, disabled }) => {
     return (
         <button
             type={type}
@@ -18,6 +20,7 @@ const Button: React.FC<ButtonProps> = ({ type, className, label, onClick, width,
             style={{
                 width: `${width}px`, height: `${height}px`
             }}
+            disabled={disabled}
         >
             {label}
         </button>

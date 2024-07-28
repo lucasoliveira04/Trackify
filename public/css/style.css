@@ -3,42 +3,98 @@
     --font-family-pacifico: "Pacifico", cursive;
 }
 
-#title-header{
+#title-header {
     font-family: var(--font-family-pacifico);
     font-weight: bold;
     font-size: 30px;
     transform: skewY(-3deg);
 }
 
-#container-navbar{
+#container-navbar {
     position: sticky;
     top: 0;
     z-index: 1000;
 }
 
-.btn{
+.btn {
     width: 100px;
 }
 
-#buttons-container{
+#buttons-container {
     gap: 20px;
 }
 
-#modal-form-login{
+.column-gap {
+    gap: 20px;
+}
+
+
+#modal-form-login {
     display: flex;
-    
     flex-direction: column;
     height: 30vh;
 }
-@media screen and (max-width: 740px){
-    #container-header{
+
+.uniform-input {
+    width: 100%;
+}
+
+.modal-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+}
+
+.custom-modal-width {
+    max-width: 800px;
+    margin: auto;
+}
+
+.uniform-input {
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+}
+
+.uniform-input:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.modal-title {
+    font-size: 24px;
+    color: #495057;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-label {
+    margin-left: 5px;
+    font-size: 14px;
+    color: #495057;
+}
+
+.text-danger {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 740px) {
+    #container-header {
         display: flex;
         flex-direction: column;
         height: auto;
         gap: 10px;
     }
 
-    #title-header{
+    #title-header {
         transform: skewY(0deg);
         font-size: 50px;
     }
