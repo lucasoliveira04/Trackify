@@ -4,6 +4,7 @@ import { auth, googleProvider } from "../../../firebase/firebase";
 
 interface AuthContextProps {
     user: User | null;
+    token: string | null
     loginWithGoogle: () => Promise<void>;
     logout: () => Promise<void>;
 }
@@ -12,40 +13,40 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
+    const [token, setToken] = useState<string | null>(null);
 
     useEffect(() => {
-
-        const storedUser = sessionStorage.getItem("user")
-
-        if (storedUser) {
-            setUser(JSON.parse(storedUser))
-        }
-
-        const unsubscribe = onAuthStateChanged(auth, (authUser) => {
+        const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
             if (authUser) {
-                setUser(authUser)
+                const userToken = await authUser.getIdToken();
+                setUser(authUser);
+                setToken(userToken);
                 sessionStorage.setItem("user", JSON.stringify({
                     displayName: authUser.displayName,
-                    email: authUser.email
-                }))
+                    email: authUser.email,
+                    token: userToken,
+                }));
             } else {
-                setUser(null)
-                sessionStorage.removeItem("user")
+                setUser(null);
+                setToken(null);
+                sessionStorage.removeItem("user");
             }
-        })
+        });
 
-        return () => unsubscribe()
-    }, [])
+        return () => unsubscribe();
+    }, []);
 
     const loginWithGoogle = async () => {
         try {
             const result = await signInWithPopup(auth, googleProvider);
+            const userToken = await result.user.getIdToken();
             setUser(result.user);
-
+            setToken(userToken);
             sessionStorage.setItem("user", JSON.stringify({
-                displayName: user?.displayName,
-                email: user?.email
-            }))
+                displayName: result.user.displayName,
+                email: result.user.email,
+                token: userToken,
+            }));
         } catch (error) {
             console.error("Erro ao fazer login com o Google:", error);
         }
@@ -55,13 +56,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         try {
             await signOut(auth);
             setUser(null);
+            setToken(null);
+            window.location.href = "/";
         } catch (error) {
             console.error("Erro ao sair:", error);
         }
     };
 
     return (
-        <AuthContext.Provider value={{ user, loginWithGoogle, logout }}>
+        <AuthContext.Provider value={{ user, token, loginWithGoogle, logout }}>
             {children}
         </AuthContext.Provider>
     );
