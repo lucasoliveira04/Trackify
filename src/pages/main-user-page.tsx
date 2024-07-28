@@ -8,6 +8,15 @@ import { getUserTokenFromSessionStorage } from "../util/auth/token-login-active"
 const WIDTH_DEFAULT = 200;
 const HEIGHT_DEFAULT = 50;  
 
+interface ButtonConfig {
+    type: "button" | "submit" | "reset";
+    className: string;
+    label: string;
+    onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    width: number;
+    height: number;
+}
+
 export const MainUserPage = () => { 
     const [, setUserData] = useState<{name: string | null, email: string | null}>({name: null, email: null});
     const { user, logout } = useAuth();
@@ -47,7 +56,7 @@ export const MainUserPage = () => {
         console.log("Open");
     }
 
-    const buttons = [
+    const buttons: ButtonConfig[] = [
         {type: "button", className: "btn btn-success", label: "Cadastre pessoa AQUI", onClick: handleOpenPeoplesRegister, width: WIDTH_DEFAULT, height: HEIGHT_DEFAULT},
         {type: "button", className: "btn btn-primary", label: `Pessoas cadastradas ${current}`, onClick: peoplesRegister, width: WIDTH_DEFAULT, height: HEIGHT_DEFAULT},
         {type: "button", className: "btn btn-danger", label: "Logout", onClick: logout, width: WIDTH_DEFAULT, height: HEIGHT_DEFAULT}
