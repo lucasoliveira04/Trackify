@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Col, Modal, Row } from "react-bootstrap";
 import Checkbox from "../components/_checkBox";
 import Button from "../components/_button";
-import getAddressByCep from "../util/get-addres-by-cep";
+import handleCepChange from "../util/handle-cep-change";
 import "../../public/css/style.css";
 
 interface RegisterFormProps {
@@ -20,15 +20,40 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ show, onSuccess, onClose })
     const [state, setState] = useState('');
     const [error, setError] = useState('');
     const [isFormValid, setIsFormValid] = useState(false);
+    const [numero, setNumero] = useState('')
+
+    const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+    const personalInputs = [
+        { type: "text", placeholder: "Nome", value: name, onChange: (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value) },
+        { type: "text", placeholder: "Sobrenome", value: surname, onChange: (e: React.ChangeEvent<HTMLInputElement>) => setSurname(e.target.value) },
+        { type: "email", placeholder: "Email", value: email, onChange: (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value) },
+        { type: showPassword ? "text" : "password", placeholder: "Password", value: password, onChange: (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value) },
+        { type: showPassword ? "text" : "password", placeholder: "Confirm Password", value: confirmPassword, onChange: (e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value) },
+    ];
+
+    const addressInputs = [
+        { type: "text", placeholder: "Cep", value: cep, onChange: (e: React.ChangeEvent<HTMLInputElement>) => handleCepChange(e, setCep, setStreet, setNeighborhood, setCity, setState, setError) },
+        { type: "text", placeholder: "Endereço", value: street, readOnly: true },
+        { type: "text", placeholder: "Número", value: numero, onChange: (e: React.ChangeEvent<HTMLInputElement>) => setNumero(e.target.value) },
+        { type: "text", placeholder: "Bairro", value: neighborhood, readOnly: true },
+        { type: "text", placeholder: "Cidade", value: city, readOnly: true },
+        { type: "text", placeholder: "Estado", value: state, readOnly: true },
+    ];
 
     useEffect(() => {
         const validateForm = () => {
+            const allPersonalInputsFilled = personalInputs.every(input => input.value?.trim() !== '');
             const allAddressInputsFilled = addressInputs.every(input => input.readOnly || input.value?.trim() !== '');
-            setIsFormValid(allAddressInputsFilled);
+            setIsFormValid(allPersonalInputsFilled && allAddressInputsFilled);
         };
 
         validateForm();
-    }, [cep, street, neighborhood, city, state, showPassword]);
+    }, [name, surname, email, password, confirmPassword, cep, street, neighborhood, city, state, showPassword]);
 
     const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -42,37 +67,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ show, onSuccess, onClose })
     const handleCheckPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
         setShowPassword(event.target.checked);
     };
-
-    const handleCepChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const cepValue = event.target.value;
-        setCep(cepValue);
-
-        if (cepValue.length === 8) {
-            getAddressByCep(cepValue, setStreet, setNeighborhood, setCity, setState, setError);
-        } else {
-            setStreet('');
-            setNeighborhood('');
-            setCity('');
-            setState('');
-        }
-    };
-
-    const personalInputs = [
-        { type: "text", placeholder: "Nome" },
-        { type: "text", placeholder: "Sobrenome" },
-        { type: "email", placeholder: "Email" },
-        { type: showPassword ? "text" : "password", placeholder: "Password" },
-        { type: showPassword ? "text" : "password", placeholder: "Confirm Password" },
-    ];
-
-    const addressInputs = [
-        { type: "text", placeholder: "Cep", value: cep, onChange: handleCepChange },
-        { type: "text", placeholder: "Endereço", value: street, readOnly: true },
-        { type: "text", placeholder: "Número", value: '' },
-        { type: "text", placeholder: "Bairro", value: neighborhood, readOnly: true },
-        { type: "text", placeholder: "Cidade", value: city, readOnly: true },
-        { type: "text", placeholder: "Estado", value: state, readOnly: true },
-    ];
 
     const registerButtons = [
         { type: "submit" as const, className: "btn btn-primary", label: "Register", onClick: handleSubmit },
@@ -95,6 +89,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ show, onSuccess, onClose })
                                 <input
                                     type={input.type}
                                     placeholder={input.placeholder}
+                                    value={input.value}
+                                    onChange={input.onChange}
                                     className="form-control mb-2"
                                 />
                             </Col>
@@ -132,7 +128,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ show, onSuccess, onClose })
                                 className={registerButtons[0].className}
                                 label={registerButtons[0].label}
                                 onClick={registerButtons[0].onClick}
-                                disabled={!isFormValid} // Desabilita o botão se o formulário não for válido
+                                disabled={!isFormValid} 
                             />
                         </Col>
                     </Row>
