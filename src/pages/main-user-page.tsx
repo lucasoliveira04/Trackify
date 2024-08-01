@@ -4,6 +4,7 @@ import Button from "../components/_button";
 import { Row } from "react-bootstrap";
 import { useAuth } from "../context/google/auth/GoogleAuthContext";
 import { getUserTokenFromSessionStorage } from "../util/auth/token-login-active";
+import { createTokenDataChild, decodeToken, userData } from "../util/user_child/generate-token-track-child";
 
 const WIDTH_DEFAULT = 200;
 const HEIGHT_DEFAULT = 50;  
@@ -62,6 +63,12 @@ export const MainUserPage = () => {
         {type: "button", className: "btn btn-danger", label: "Logout", onClick: logout, width: WIDTH_DEFAULT, height: HEIGHT_DEFAULT}
     ];
 
+    useEffect(() => {
+        const token = createTokenDataChild(userData)
+        const decodedData = decodeToken(token)
+        console.log(decodedData)
+        console.log(token)
+    }, [])
 
     return (
         <div>
