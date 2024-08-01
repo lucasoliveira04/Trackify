@@ -1,28 +1,15 @@
 import CryptoJS from 'crypto-js';
+import { base64UrlDecode, base64UrlEncode } from '../base64/base64-utils';
+import { formatTimestamp } from '../formated-date-time';
 
-interface TokenPayload {
+export interface TokenPayload {
     id: number;
     username: string;
     email: string;
     role: string;
     iat: number;
+    addressClient: string | null;
     formattedDate?: string; 
-}
-
-const base64UrlEncode = (str: string): string => {
-    const base64 = btoa(unescape(encodeURIComponent(str)));
-    return base64
-        .replace(/=/g, '')
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_');
-}
-
-const base64UrlDecode = (str: string): string => {
-    str = str
-        .replace(/-/g, '+')
-        .replace(/_/g, '/');
-    const decoded = atob(str);
-    return decodeURIComponent(escape(decoded));
 }
 
 export const createTokenDataChild = (data: TokenPayload): string => {
@@ -38,7 +25,8 @@ export const createTokenDataChild = (data: TokenPayload): string => {
         username: data.username,
         email: data.email,
         role: data.role,
-        iat: Math.floor(Date.now() / 1000) 
+        addressClient: data.addressClient,
+        iat: data.iat
     };
 
     const encodedHeader = base64UrlEncode(JSON.stringify(header));
@@ -54,17 +42,6 @@ export const createTokenDataChild = (data: TokenPayload): string => {
     return `${encodedHeader}.${encodedPayload}.${signature}`;
 }
 
-const formatTimestamp = (timestamp: number): string => {
-    const date = new Date(timestamp * 1000); 
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0'); 
-    const year = date.getFullYear();
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-
-    return `${day}/${month}/${year} ${hours}:${minutes}`;
-}
-
 export const decodeToken = (token: string): TokenPayload | null => {
     try {
         const [, encodedPayload] = token.split('.');
@@ -74,7 +51,6 @@ export const decodeToken = (token: string): TokenPayload | null => {
         }
 
         const decodedPayload = base64UrlDecode(encodedPayload);
-
         const payload: TokenPayload = JSON.parse(decodedPayload);
 
         if (payload.iat) {
@@ -86,12 +62,4 @@ export const decodeToken = (token: string): TokenPayload | null => {
         console.error('Error decoding token:', error);
         return null;
     }
-}
-
-export const userData: TokenPayload = {
-    id: 123,
-    username: "Lucas",
-    email: "Teste@gmail.com",
-    role: "child",
-    iat: Math.floor(Date.now() / 1000) 
 }

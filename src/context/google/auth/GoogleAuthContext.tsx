@@ -57,6 +57,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             await signOut(auth);
             setUser(null);
             setToken(null);
+            localStorage.clear()
             window.location.href = "/";
         } catch (error) {
             console.error("Erro ao sair:", error);
