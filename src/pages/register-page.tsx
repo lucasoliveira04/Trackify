@@ -20,20 +20,21 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ show, onSuccess, onClose })
     const [state, setState] = useState('');
     const [error, setError] = useState('');
     const [isFormValid, setIsFormValid] = useState(false);
-    const [numero, setNumero] = useState('')
+    const [numero, setNumero] = useState('');
 
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [passwordError, setPasswordError] = useState(false);
 
     const personalInputs = [
         { type: "text", placeholder: "Nome", value: name, onChange: (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value) },
         { type: "text", placeholder: "Sobrenome", value: surname, onChange: (e: React.ChangeEvent<HTMLInputElement>) => setSurname(e.target.value) },
         { type: "email", placeholder: "Email", value: email, onChange: (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value) },
-        { type: showPassword ? "text" : "password", placeholder: "Password", value: password, onChange: (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value) },
-        { type: showPassword ? "text" : "password", placeholder: "Confirm Password", value: confirmPassword, onChange: (e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value) },
+        { type: showPassword ? "text" : "password", placeholder: "Senha", value: password, onChange: (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value), className: passwordError ? 'is-invalid' : '' },
+        { type: showPassword ? "text" : "password", placeholder: "Confirmar Senha", value: confirmPassword, onChange: (e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value), className: passwordError ? 'is-invalid' : '' },
     ];
 
     const addressInputs = [
@@ -55,8 +56,18 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ show, onSuccess, onClose })
         validateForm();
     }, [name, surname, email, password, confirmPassword, cep, street, neighborhood, city, state, showPassword]);
 
+    useEffect(() => {
+        if (confirmPassword.length > 0) {
+            setPasswordError(password !== confirmPassword);
+        }
+    }, [password, confirmPassword]);
+
     const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
+        if (password !== confirmPassword) {
+            setPasswordError(true);
+            return;
+        }
         onClose();
 
         setTimeout(() => {
@@ -69,18 +80,18 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ show, onSuccess, onClose })
     };
 
     const registerButtons = [
-        { type: "submit" as const, className: "btn btn-primary", label: "Register", onClick: handleSubmit },
+        { type: "submit" as const, className: "btn btn-primary w-50", label: "Criar Conta", onClick: handleSubmit },
     ];
 
     const registerCheckboxes = [
-        { id: "showPassword", label: "Show Password", checked: showPassword, onChange: handleCheckPassword },
+        { id: "showPassword", label: "Exbir Senha", checked: showPassword, onChange: handleCheckPassword },
     ];
 
     return (
         <Modal show={show} onHide={onClose} dialogClassName="custom-modal-width">
             <div className="modal-container">
                 <Modal.Header closeButton>
-                    <Modal.Title className="modal-title">Register</Modal.Title>
+                    <Modal.Title className="modal-title text-center w-100">Criar Conta <i className="material-icons">perm_identity</i></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Row className="mb-3">
@@ -91,7 +102,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ show, onSuccess, onClose })
                                     placeholder={input.placeholder}
                                     value={input.value}
                                     onChange={input.onChange}
-                                    className="form-control mb-2"
+                                    className={`form-control mb-2 ${input.className || ''}`}
                                 />
                             </Col>
                         ))}
@@ -103,7 +114,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ show, onSuccess, onClose })
                                     type={input.type}
                                     placeholder={input.placeholder}
                                     value={input.value}
-                                    onChange={input.onChange || (() => {})}
+                                    onChange={input.onChange || (() => { })}
                                     readOnly={input.readOnly || false}
                                     className="form-control mb-2"
                                 />
@@ -120,7 +131,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ show, onSuccess, onClose })
                                         checked={checkbox.checked}
                                         onChange={checkbox.onChange}
                                     />
-                                    <label className="checkbox-label" htmlFor={checkbox.id}>{checkbox.label}</label>
                                 </div>
                             ))}
                             <Button
@@ -128,7 +138,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ show, onSuccess, onClose })
                                 className={registerButtons[0].className}
                                 label={registerButtons[0].label}
                                 onClick={registerButtons[0].onClick}
-                                disabled={!isFormValid} 
+                                disabled={!isFormValid}
                             />
                         </Col>
                     </Row>
