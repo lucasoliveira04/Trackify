@@ -59,7 +59,6 @@ export const decodeToken = (token: string): TokenPayload | null => {
 
         return payload;
     } catch (error) {
-        console.error('Error decoding token:', error);
         return null;
     }
 }
