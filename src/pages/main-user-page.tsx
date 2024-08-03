@@ -78,36 +78,29 @@ export const MainUserPage = () => {
 
     useEffect(() => {
         if (address !== null) {
-            if (address) {
-                const newToken = createTokenDataChild({
-                    id: 123,
-                    username: "Lucas",
-                    email: "Teste@gmail.com",
-                    addressClient: cleanAddress(address),
-                    role: "child",
-                    iat: Math.floor(Date.now() / 1000)
-                });
-                setTokenAddress(newToken)
-                const decodedData = decodeToken(newToken);
-                setDecodedData(decodedData)
-                console.log(newToken);
-                console.log(decodedData);
-            }
+            const newToken = createTokenDataChild({
+                id: 123,
+                username: "Lucas",
+                email: "Teste@gmail.com",
+                addressClient: cleanAddress(address),
+                role: "child",
+                iat: Math.floor(Date.now() / 1000)
+            });
+            setTokenAddress(newToken);
+            const decodedData = decodeToken(newToken);
+            setDecodedData(decodedData);
 
-            const concatedAddressAndDateTime = `${address} | ${formatedDateTime()}`
+            const concatedAddressAndDateTime = `${address} | ${formatedDateTime()}`;
+            localStorage.setItem('address', concatedAddressAndDateTime);
 
-            localStorage.setItem('address', concatedAddressAndDateTime)
-
-            const storedValue = localStorage.getItem('address')
-            const [storedAddress] = storedValue ? storedValue.split(" | ") : [null]
+            const storedValue = localStorage.getItem('address');
+            const [storedAddress] = storedValue ? storedValue.split(" | ") : [null];
 
             if (storedAddress !== address) {
-                alert("mudou né?")
-                localStorage.removeItem('address')
-                localStorage.setItem('address', concatedAddressAndDateTime)
+                alert("mudou né?");
+                localStorage.setItem('address', concatedAddressAndDateTime);
             }
         }
-
     }, [address]);
 
     const generateToken = () => {
