@@ -11,9 +11,9 @@ export const MainPage = () => {
     const [showLogin, setShowLogin] = useState(false)
     const [, setIsLoggedIn] = useState(false)
     const [showRegister, setShowRegister] = useState(false)
-    const [ ,setIsRegisterIn] = useState(false)
+    const [, setIsRegisterIn] = useState(false)
 
-    const {user} = useAuth()
+    const { user } = useAuth()
 
     const handleOpenModal = (setModalState: ModalStateSetter) => {
         setModalState(true)
@@ -34,9 +34,9 @@ export const MainPage = () => {
         }
     }, [user])
 
-    return(
+    return (
         <div>
-            <Header 
+            <Header
                 title="Trackify"
                 label_button1="Login"
                 label_button2="Registrar"
@@ -44,14 +44,41 @@ export const MainPage = () => {
                 onClickBtn2={() => handleOpenModal(setShowRegister)}
             />
 
-            <LoginForm 
-                show={showLogin} 
-                onSuccess={() => handleSuccess(setIsLoggedIn)} 
+            <div className="">
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "3%" }}>
+                    <h3>Quem somos ?</h3>
+                    <p style={{ fontFamily: "var(--main-font)", textAlign: "justify", fontSize: "" }} className="fw-bold w-50">
+                        Somos uma startup brasileira, fundada em julho de 2024, dedicada ao monitoramento em tempo real de pessoas idosas. Nosso objetivo é proporcionar segurança e tranquilidade, permitindo que familiares acompanhem o bem-estar de seus entes queridos de maneira simples e eficaz. Com uma plataforma Open-Source, oferecemos um serviço totalmente gratuito, acessível a todos. Junte-se a nós na missão de cuidar daqueles que cuidaram de nós.
+                    </p>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "3%" }}>
+                    <h3>Nossos Objetivos</h3>
+                    <p style={{ fontFamily: "var(--main-font)", textAlign: "justify", fontSize: "" }} className="fw-bold w-50">
+                        Nosso principal objetivo é proporcionar uma plataforma de monitoramento em tempo real para pessoas idosas, garantindo segurança e tranquilidade para suas famílias. Como uma plataforma open-source, queremos incentivar a contribuição da comunidade para aprimorar continuamente nossos serviços. Estamos comprometidos em oferecer um serviço totalmente gratuito, acessível a todos, e em fazer a diferença na vida das pessoas.
+                    </p>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "3%" }}>
+                    <h3>Fundadores</h3>
+                    <p style={{ fontFamily: "var(--main-font)", textAlign: "justify", fontSize: "" }} className="fw-bold w-50">
+                        Lucas Oliveira Campos
+                    </p>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "3%" }}>
+                    <h3>Suporte</h3>
+                    <p style={{ fontFamily: "var(--main-font)", textAlign: "justify", fontSize: "" }} className="fw-bold w-50">
+                        Deixe seu feedback
+                    </p>
+                </div>
+            </div>
+
+            <LoginForm
+                show={showLogin}
+                onSuccess={() => handleSuccess(setIsLoggedIn)}
                 onClose={() => handleCloseModal(setShowLogin)} />
 
-            <RegisterForm 
-                show={showRegister} 
-                onSuccess={() => handleSuccess(setIsRegisterIn)} 
+            <RegisterForm
+                show={showRegister}
+                onSuccess={() => handleSuccess(setIsRegisterIn)}
                 onClose={() => handleCloseModal(setShowRegister)} />
         </div>
     )
