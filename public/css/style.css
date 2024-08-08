@@ -1,6 +1,7 @@
 :root {
     --font-family-gaMaamli: "Ga Maamli", sans-serif;
     --font-family-pacifico: "Pacifico", cursive;
+    --main-font: "Inter", sans-serif;
 }
 
 #title-header {
