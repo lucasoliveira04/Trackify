@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createTokenDataChild, decodeToken, TokenPayload } from "./generate-token-track-child";
 import { cleanAddress } from "../geo-location";
 
@@ -10,6 +10,26 @@ const TokenButtons: React.FC<TokenButtonsProps> = ({ address }) => {
     const [generatedToken, setGeneratedToken] = useState<string | null>(null);
     const [extractedData, setExtractedData] = useState<TokenPayload | null>(null);
     const [showExtractToken, setShowExtractToken] = useState<boolean>(false);
+    
+    useEffect(() => {
+        if (address) {
+            localStorage.setItem('currentAddress', address)
+        }
+    }, [address])
+
+    useEffect(() => {
+        const checkAddressChange = () => {
+            const storedAddress = localStorage.getItem('currentAddress')
+            if (storedAddress && storedAddress !== address){
+                alert(`Endereço mudou para: ${address}`)
+                localStorage.setItem('currentAddress', address!)
+            }
+        }
+
+        const intervalId = setInterval(checkAddressChange, 1000)
+
+        return () => clearInterval(intervalId)
+    }, [address])
 
     const generateToken = () => {
         const newToken = createTokenDataChild({
