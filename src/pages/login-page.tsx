@@ -42,11 +42,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ show, onSuccess, onClose }) => {
     ];
 
     const loginButtons = [
-        { type: "submit" as const, className: "btn-primary", label: "Login", onClick: handleSubmit },
+        { type: "submit" as const, className: "btn btn-primary", label: "Login", onClick: handleSubmit },
     ];
 
     const loginCheckboxes = [
-        { id: "showPassword", label: "Show Password", checked: showPassword, onChange: handleCheckboxChange },
+        { id: "showPassword", label: "Exibir Senha", checked: showPassword, onChange: handleCheckboxChange },
     ];
 
     return (
