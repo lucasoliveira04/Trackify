@@ -5,7 +5,7 @@ export const HomePage = () => {
         <div>
             <HeaderComponent
                 selectHeader={2}
-                title={"TrackIf"}
+                title={"TrackIF"}
             />
         </div>
     )
